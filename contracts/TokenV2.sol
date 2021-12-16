@@ -1,15 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.3;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 
-contract TokenV2 is ERC20 {
+contract TokenV2 is ERC20Upgradeable {
     uint256 _totalSupply;
     address public owner;
 
-    constructor(uint256 _initSupply) ERC20("TokenV1", "TV1") {
+    function initialize(uint256 _initSupply) public initializer {
         owner = msg.sender;
         _totalSupply = _initSupply;
+        __ERC20_init("TokenV2", "TV2");
         _mint(owner, _totalSupply);
     }
 }
